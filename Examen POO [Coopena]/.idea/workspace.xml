@@ -16,7 +16,7 @@
     <session id="380226100">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.opened" value="2" />
@@ -64,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Modelo/Modelo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="99" selection-start-line="99" selection-end-line="99" />
+            <state relative-caret-position="161">
+              <caret line="96" selection-start-line="96" selection-end-line="96" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#472#482#0" expanded="true" />
@@ -232,7 +232,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4609929" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4609929" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -320,8 +320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modelo/Modelo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
+        <state relative-caret-position="161">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#472#482#0" expanded="true" />

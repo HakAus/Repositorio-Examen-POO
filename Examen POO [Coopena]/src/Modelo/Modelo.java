@@ -2,6 +2,7 @@ package Modelo;
 import com.opencsv.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class Modelo implements ObjObservable {
                 FileWriter pw = new FileWriter(archivoPrestamos, true);
                 String[] linea = {Integer.toString(prestamo.getNumeroPrestamo()), Float.toString(prestamo.getValorPrestamo()),
                         Integer.toString(prestamo.getCuotasPagadas()), dateFormat.format(prestamo.getFechasDePago()[0]),
-                        dateFormat.format(prestamo.getFechaLimite())};
+                        dateFormat.format(prestamo.getFechaLimite()), "\n"};
                 String joinedLinea = String.join(";", linea);
                 pw.append(joinedLinea);
                 pw.close();
@@ -73,6 +74,29 @@ public class Modelo implements ObjObservable {
                 System.out.println("No se ha podido encontrar el archivo de prestamo");
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void eliminarPrestamo(int ID) {
+        try {
+            BufferedReader archivo = new BufferedReader(new InputStreamReader(new FileInputStream(archivoPrestamos), StandardCharsets.UTF_8));
+            FileWriter archivoTemporal = new FileWriter("prestamosTemp.csv", true);
+            String linea;
+            while ((linea = archivo.readLine()) != null) {
+                String[] partes = linea.split(";");
+                if (!partes[0].equals(Integer.toString(ID))) {
+                    archivoTemporal.write(linea+"\n");
+                }
+            }
+            archivoTemporal.close();
+            archivo.close();
+            File archivoParaBorrar = new File(archivoPrestamos);
+            boolean borrar = archivoParaBorrar.delete();
+            File f1 = new File("prestamosTemp.csv");
+            File f2 = new File(archivoPrestamos);
+            boolean renombrar = f1.renameTo(f2);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

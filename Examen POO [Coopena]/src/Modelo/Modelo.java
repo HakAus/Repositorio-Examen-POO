@@ -1,9 +1,9 @@
 package Modelo;
 import com.opencsv.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Modelo implements ObjObservable {
@@ -12,7 +12,9 @@ public class Modelo implements ObjObservable {
 
     private Prestamo prestamo;
     private String DireccionRegistro = "Registro_Prueba.csv";
-    private ArrayList<String[]> PersonasRegistradas;
+    private String archivoPrestamos = "Prestamos.csv";
+    private ArrayList<String[]> PersonasRegistradas = new ArrayList<String[]>();
+    private String[] usuarioPrueba = {"90182345", "Pilar", "Solis", "Brenes", "21093458", "87652112","0"};
 
     // Metodos propios
 
@@ -53,10 +55,24 @@ public class Modelo implements ObjObservable {
     }
 
     public void agregarPrestamo (float pMonto, float pMaximo){
+        Persona usuario = new Persona("90182345", "Pilar", "Solis", "Brenes", "21093458", "87652112");
         if (!verificarUsuario()) {
             prestamo = new Prestamo(pMonto, pMaximo);
         } else {
-
+            prestamo = new Prestamo(pMonto, pMaximo);
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                FileWriter pw = new FileWriter(archivoPrestamos, true);
+                String[] linea = {Integer.toString(prestamo.getNumeroPrestamo()), Float.toString(prestamo.getValorPrestamo()),
+                        Integer.toString(prestamo.getCuotasPagadas()), dateFormat.format(prestamo.getFechasDePago()[0]),
+                        dateFormat.format(prestamo.getFechaLimite())};
+                String joinedLinea = String.join(";", linea);
+                pw.append(joinedLinea);
+                pw.close();
+            } catch (IOException e) {
+                System.out.println("No se ha podido encontrar el archivo de prestamo");
+                e.printStackTrace();
+            }
         }
     }
 

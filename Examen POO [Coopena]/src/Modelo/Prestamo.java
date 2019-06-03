@@ -5,6 +5,7 @@ import java.util.Date;
 public class Prestamo {
 
     // Atributos
+    private static int numero = 1;
 
     private int NumeroPrestamo;
     private Persona Solicitante;
@@ -12,15 +13,22 @@ public class Prestamo {
     private Date[] FechasDePago;
     private Date FechaAutorizacion;
     private Date FechaTentEntrega;
+    private Date FechaLimite;
     private float ValorMaximo;
-
+    private int cuotasPagadas;
     // Constructor
 
     public Prestamo(float pValorPrestamo, float pValorMáximo ) {
 
+        NumeroPrestamo = numero;
+        numero++;
         ValorPrestamo = pValorPrestamo;
         ValorMaximo = pValorMáximo;
-
+        FechaAutorizacion = new Date();
+        FechaTentEntrega = new Date();
+        FechaLimite = new Date();
+        FechasDePago = new Date[]{new Date()};
+        cuotasPagadas = 0;
     }
 
     // Metodos
@@ -80,5 +88,21 @@ public class Prestamo {
 
     public void setValorMaximo(float valorMaximo) {
         ValorMaximo = valorMaximo;
+    }
+
+    public int getCuotasPagadas() {
+        return cuotasPagadas;
+    }
+
+    public void setCuotasPagadas(int cuotasPagadas) {
+        this.cuotasPagadas = cuotasPagadas;
+    }
+
+    public Date getFechaLimite() {
+        return FechaLimite;
+    }
+
+    public void setFechaLimite(Date fechaLimite) {
+        FechaLimite = fechaLimite;
     }
 }

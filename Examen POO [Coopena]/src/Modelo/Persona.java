@@ -4,17 +4,17 @@ public class Persona {
 
     // Atributos
 
-    private String NumeroID;
+    private int NumeroID;
     private String Nombre;
     private String Apellido1;
     private String Apellido2;
-    private String TelefonoCasa;
-    private String TelefonoMovil;
+    private int TelefonoCasa;
+    private int TelefonoMovil;
 
     // Constructor
 
-    public Persona (String pNumeroID, String pNombre, String pApellido1,
-                    String pApellido2, String pTelefonoCasa, String pTelefonoMovil){
+    public Persona (int pNumeroID, String pNombre, String pApellido1,
+                    String pApellido2, int pTelefonoCasa, int pTelefonoMovil){
 
         NumeroID = pNumeroID;
         Nombre = pNombre;
@@ -27,11 +27,11 @@ public class Persona {
 
     // Metodos
 
-    public String getNumeroID() {
+    public int getNumeroID() {
         return NumeroID;
     }
 
-    public void setNumeroID(String numeroID) {
+    public void setNumeroID(int numeroID) {
         NumeroID = numeroID;
     }
 
@@ -59,19 +59,19 @@ public class Persona {
         Apellido2 = apellido2;
     }
 
-    public String getTelefonoCasa() {
+    public int getTelefonoCasa() {
         return TelefonoCasa;
     }
 
-    public void setTelefonoCasa(String telefonoCasa) {
+    public void setTelefonoCasa(int telefonoCasa) {
         TelefonoCasa = telefonoCasa;
     }
 
-    public String getTelefonoMovil() {
+    public int getTelefonoMovil() {
         return TelefonoMovil;
     }
 
-    public void setTelefonoMovil(String telefonoMovil) {
+    public void setTelefonoMovil(int telefonoMovil) {
         TelefonoMovil = telefonoMovil;
     }
 }

@@ -9,30 +9,38 @@ import java.awt.event.ActionListener;
 
 public class Controlador implements ActionListener {
 
-    // Atributos
+    // Atributos del controlador
+    static final String PANEL_BIENVENIDA = "Panel de selección de usuario";
+    static final String PANEL_INGRESO_DATOS_USUARIO = "Menú de ingreso de datos";
+    private Interfaz interfaz;
+    private Modelo modelo;
+
+    // Atributos del cliente
     private String Nombre;
     private String Apellido1;
     private String Apellido2;
     private Integer Cedula;
     private Integer TelefonoCasa;
     private Integer TelefonoMovil;
-    static final String PANEL_BIENVENIDA = "Panel de selección de usuario";
-    static final String PANEL_INGRESO_DATOS_USUARIO = "Menú de ingreso de datos";
-    private Interfaz interfaz;
+
+    // Atributos del prestamo
+    float montoDelPrestamo;
+    float montoMaximoDelPrestamo;
 
     // Constructor
-
     public Controlador(Interfaz frame) {
         interfaz = frame;
+        modelo = new Modelo(this);
+        montoMaximoDelPrestamo = 1000000;
     }
 
     // Metodos
 
-    private boolean validarDatosIngresados(){
+    private boolean validarDatosIngresados(Persona persona){
         //------Para verificar que los Strings no tengan numeros------//
-        Nombre = interfaz.tf_CampoNombre.getText();
-        Apellido1 = interfaz.tf_CampoApellido1.getText();
-        Apellido2 = interfaz.tf_CampoApellido2.getText();
+        Nombre = persona.getNombre();
+        Apellido1 = persona.getApellido1();
+        Apellido2 = persona.getApellido2();
 
         // Ese metodo es magico y lo encontre en StackOverflow, utiliza algo que se llama regex(Regular expression)
         // que son expresiones que definen patrones de busqueda. El patron .*\\d.* se encarga de buscar si hay un numero.
@@ -54,12 +62,9 @@ public class Controlador implements ActionListener {
         //-------------------------------------------------------------//
         //------- Para verificar que los numeros no tengan letras -----//
         try {
-            String cedulaTemp = interfaz.tf_CampoCedula.getText();
-            Cedula = Integer.parseInt(cedulaTemp);
-            String casaTempo = interfaz.tf_TelefonoCasa.getText();
-            TelefonoCasa = Integer.parseInt(casaTempo);
-            String movilTemp = interfaz.tf_TelefonoMovil.getText();
-            TelefonoMovil = Integer.parseInt(movilTemp);
+            Cedula = persona.getNumeroID();
+            TelefonoCasa = persona.getTelefonoCasa();
+            TelefonoMovil = persona.getTelefonoMovil();
         }
         catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Ups! Hubo un error al ingresar sus datos,\n" +
@@ -91,17 +96,12 @@ public class Controlador implements ActionListener {
             interfaz.LayoutContenedor.show(interfaz.Contenedor,PANEL_INGRESO_DATOS_USUARIO);
         }
         if(evento.getSource() == interfaz.bt_AceptarDatos){
-            if (validarDatosIngresados()) {
-                JOptionPane.showMessageDialog(null,"¡Acceso exitoso!");
-                Persona cliente = new Persona(Cedula, Nombre,
-                        Apellido1, Apellido2, TelefonoCasa, TelefonoMovil);
+            JOptionPane.showMessageDialog(null,"¡Acceso exitoso!");
+            Persona cliente = new Persona(Cedula, Nombre,
+                    Apellido1, Apellido2, TelefonoCasa, TelefonoMovil);
+            if (validarDatosIngresados(cliente)) {
+                Prestamo prestamo = new Prestamo(cliente, montoDelPrestamo);
             }
-
-
-
-
         }
-
-
     }
 }

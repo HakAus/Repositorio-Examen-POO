@@ -22,7 +22,6 @@ public class Persona {
         Apellido2 = pApellido2;
         TelefonoCasa = pTelefonoCasa;
         TelefonoMovil = pTelefonoMovil;
-
     }
 
     // Metodos

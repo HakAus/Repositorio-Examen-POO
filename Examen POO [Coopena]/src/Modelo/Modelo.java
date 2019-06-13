@@ -17,13 +17,19 @@ public class Modelo implements ObjObservable {
 
     // Sobre prestamos
     private Prestamo prestamo;
-    private String DireccionRegistro = "Registro_Prueba.csv";
-    private String archivoPrestamos = "Prestamos.csv";
-    private ArrayList<String[]> PersonasRegistradas = new ArrayList<String[]>();
-    private String[] usuarioPrueba = {"90182345", "Pilar", "Solis", "Brenes", "21093458", "87652112","0"};
+    private String DireccionRegistro;
+    private String archivoPrestamos;
+    private ArrayList<String[]> PersonasRegistradas;
     public Controlador controlador;
 
     // Metodos propios
+    public Modelo(Controlador pControlador) {
+        Clientes = new ArrayList<Persona>();
+        DireccionRegistro = "Registro_Prueba.csv";
+        archivoPrestamos = "Prestamos.csv";
+        PersonasRegistradas = new ArrayList<String[]>();
+        controlador = pControlador;
+    }
 
     public boolean verificarUsuario() {
         // Variables locales
@@ -61,24 +67,19 @@ public class Modelo implements ObjObservable {
     return true;
     }
 
-    public void agregarPrestamo (Persona pCliente, float pMonto, float pMaximo){
-        if (!verificarUsuario()) {
-            prestamo = new Prestamo(pMonto, pMaximo);
-        } else {
-            prestamo = new Prestamo(pMonto, pMaximo);
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                FileWriter pw = new FileWriter(archivoPrestamos, true);
-                String[] linea = {Integer.toString(prestamo.getNumeroPrestamo()), Float.toString(prestamo.getValorPrestamo()),
-                        Integer.toString(prestamo.getCuotasPagadas()), dateFormat.format(prestamo.getFechasDePago()[0]),
-                        dateFormat.format(prestamo.getFechaLimite()), "\n"};
-                String joinedLinea = String.join(";", linea);
-                pw.append(joinedLinea);
-                pw.close();
-            } catch (IOException e) {
-                System.out.println("No se ha podido encontrar el archivo de prestamo");
-                e.printStackTrace();
-            }
+    public void agregarPrestamo (Persona pCliente, Prestamo prestamo){
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            FileWriter pw = new FileWriter(archivoPrestamos, true);
+            String[] linea = {Integer.toString(prestamo.getNumeroPrestamo()), Float.toString(prestamo.getValorPrestamo()),
+                    Integer.toString(prestamo.getCuotasPagadas()), dateFormat.format(prestamo.getFechasDePago()[0]),
+                    dateFormat.format(prestamo.getFechaLimite()), "\n"};
+            String joinedLinea = String.join(";", linea);
+            pw.append(joinedLinea);
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("No se ha podido encontrar el archivo de prestamo");
+            e.printStackTrace();
         }
     }
 
